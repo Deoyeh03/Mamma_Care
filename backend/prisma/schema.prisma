@@ -1,0 +1,43 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "linux-musl-openssl-3.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Staff {
+  id       String   @id @default(cuid())
+  name     String
+  email    String   @unique
+  password String
+  role     String
+  vitals   Vitals[]
+}
+
+model Patient {
+  id               String    @id // Used for QR code
+  name             String
+  email            String    @unique
+  password         String
+  bloodGroup       String?
+  edd              DateTime?
+  emergencyContact String?
+  vitals           Vitals[]
+}
+
+model Vitals {
+  id             String   @id @default(cuid())
+  patientId      String
+  recordedById   String
+  bloodPressure  String?
+  weight         Float?
+  fetalHeartRate Float?
+  doctorNotes    String?
+  createdAt      DateTime @default(now())
+
+  patient    Patient @relation(fields: [patientId], references: [id])
+  recordedBy Staff   @relation(fields: [recordedById], references: [id])
+}
