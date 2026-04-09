@@ -69,7 +69,7 @@ export default function PatientDashboard() {
               </View>
               <View>
                 <Text style={styles.metricLabel}>FHR</Text>
-                <Text style={styles.metricVal}>{v.fetalHeartRate ? \`\${v.fetalHeartRate} bpm\` : '-'}</Text>
+                <Text style={styles.metricVal}>{v.fetalHeartRate ? `${v.fetalHeartRate} bpm` : '-'}</Text>
               </View>
             </View>
           </View>
